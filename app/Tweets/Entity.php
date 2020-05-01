@@ -1,19 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Tweets;
 
 use App\Post;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
-use Laravel\Lumen\Auth\Authorizable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract
+
+class Entity extends Model 
 {
-    use Authenticatable, Authorizable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -34,8 +30,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public $incrementing = false;
 
-    public function posts() : HasMany
+    public function hasTags() : HasMany
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function posts() : BelongsTo
+    {
+        return $this->belongTo(Post::class);
     }
 }

@@ -23,9 +23,9 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+ $app->withFacades();
 
-// $app->withEloquent();
+ $app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +48,7 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+
 /*
 |--------------------------------------------------------------------------
 | Register Config Files
@@ -61,6 +62,7 @@ $app->singleton(
 
 $app->configure('app');
 
+$app->register(Kra8\Snowflake\Providers\LumenServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
