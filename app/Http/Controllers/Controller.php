@@ -17,9 +17,9 @@ class Controller extends BaseController
      * Find method grabs model type and query by id. 
      * @param  int   $id   
      * @param  int|null $take filter by take method
-     * @return Model $result 
+     * @return ?Model $result 
      */
-    public function find($id, ?int $take = null) 
+    public function find(int $id, ?int $take = null) : ?Model
     {   
         $modelType = $this->getModelType();
 
@@ -33,19 +33,23 @@ class Controller extends BaseController
             $result = $modelType::where('id', $id)->take($take)->get();
         }
         
+        if (!$result) {
+            return null;
+        }   
+
         return $result;
     }
 
     /**
      * return all results in model
-     * 
+     * @return  Collection $result
      */
-    public function all() 
+    public function all() : ?Collection
     {  
         $result = $this->getModelType()::all();
-        
+
         if(count($result) < 1) {
-            return [404];
+            return null;
         }
 
         return $result;
@@ -64,7 +68,7 @@ class Controller extends BaseController
      * Just gets random User ID for now
      * @return instance USER
      */
-    public function getUserID() 
+    public function getUserID() : int
     {
         return User::inRandomOrder()->first()->id;
     }

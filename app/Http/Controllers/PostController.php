@@ -19,8 +19,8 @@ class PostController extends Controller
         $this->model = 'post';
         $post = $this->all();
 
-        if($post[0] === 404) {
-            return response()->json(['data' => $post], 404);
+        if(!$post) {
+            return response()->json(['data' => 'Could not find any posts'], 404);
         }
 
 		return response()->json($post, 200);

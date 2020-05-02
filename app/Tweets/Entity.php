@@ -16,7 +16,7 @@ class Entity extends Model
      * @var array
      */
     protected $fillable = [
-        'id','id_str','name', 'email', 'screen_name'
+        'id', 'post_id', 'name', 'email', 'screen_name'
     ];
 
     /**
@@ -25,7 +25,7 @@ class Entity extends Model
      * @var array
      */
     protected $hidden   = [
-        'created_at', 'updated_at', 'password'
+        'id','created_at', 'updated_at', 'password'
     ];
 
     public $incrementing = false;

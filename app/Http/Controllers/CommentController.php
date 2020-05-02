@@ -17,8 +17,8 @@ class CommentController extends Controller
         $this->model = 'comment';
         $comment = $this->all();
 
-        if($comment[0] === 404) {
-            return response()->json(['data' => $comment], 404);
+        if(!$comment) {
+            return response()->json(['data' => 'Could not find any Comments'], 404);
         }
 
 		return response()->json(['data' => $comment], 200);

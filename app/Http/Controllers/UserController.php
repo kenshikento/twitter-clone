@@ -18,7 +18,7 @@ class UserController extends Controller
         $this->model = 'user';
         $user = $this->all();
 
-        if($user[0] === 404) {
+        if(!$user) {
             return response()->json(['data' => 'Could not find any Users'], 404);
         }
 
@@ -62,8 +62,8 @@ class UserController extends Controller
     	$this->model = 'user';
         $user = $this->find($id, null);
 
-    	if ($user[0] === 404) {
-    		return response()->json(['data' => 'Could not find User [{$id}]'], 404);
+    	if (!$user) {
+    		return response()->json(['data' => 'Could not find User :' . $id], 404);
     	}
 
     	return response()->json(['data' => $user], 200);

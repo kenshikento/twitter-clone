@@ -22,7 +22,7 @@ class PostCommentController extends Controller
 
         $comments = $post->comments;
         
-        if ($post[0] === 404) {
+        if (!$post) {
             return response()->json(['data' => 'Could not find User [{$id}]'], 404);
         }
         

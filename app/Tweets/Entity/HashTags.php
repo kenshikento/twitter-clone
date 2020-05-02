@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tweets;
+namespace App\Tweets\Entity;
 
 use App\Tweets\Entity;
 use App\Post;
@@ -17,7 +17,7 @@ class HashTags extends Model
      * @var array
      */
     protected $fillable = [
-        'id','id_str','name', 'email', 'screen_name'
+        'id','indices_id', 'entity_id', 'text'
     ];
 
     /**
@@ -26,14 +26,16 @@ class HashTags extends Model
      * @var array
      */
     protected $hidden   = [
-        'created_at', 'updated_at', 'password'
+        'id', 'created_at', 'updated_at'
     ];
 
-    public $incrementing = false;
-
-    public function hasTags() : HasMany
+    /**
+     * 
+     * @return boolean [description]
+     */
+    public function indices() : HasMany
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Indices::class);
     }
 
     public function entity() : BelongsTo
