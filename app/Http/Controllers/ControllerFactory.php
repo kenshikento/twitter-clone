@@ -11,20 +11,20 @@ class ControllerFactory
 {
     /**
      * Factory that decides what kind of model to use
-     * @param  string $modelType 
+     * @param  string $modelType
      * @return Model
      */
-	public function make(string $modelType) : Model
-	{
+    public function make(string $modelType) : Model
+    {
         switch ($modelType) {
             case 'post':
                 return new Post();
             case 'user':
                 return new User();
             case 'comment':
-            	return new Comments();
+                return new Comments();
         }
 
-        throw new Exception("Unsupported model type [{$modelType}]");		
-	}
+        throw new Exception("Unsupported model type [{$modelType}]");
+    }
 }

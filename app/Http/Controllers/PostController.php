@@ -15,21 +15,21 @@ class PostController extends Controller
      * @return Response Symfony\Component\HttpFoundation\Response
      */
     public function index() : Response
-    { 
+    {
         $this->model = 'post';
         $post = $this->all();
 
-        if(!$post) {
+        if (!$post) {
             return response()->json(['data' => 'Could not find any posts'], 404);
         }
 
-		return response()->json($post, 200);
+        return response()->json($post, 200);
     }
 
     /**
      * adds post
-     * @param  Request $request 
-     * @return Response Symfony\Component\HttpFoundation\Response           
+     * @param  Request $request
+     * @return Response Symfony\Component\HttpFoundation\Response
      */
     public function store(Request $request)
     {
@@ -50,7 +50,6 @@ class PostController extends Controller
             'id_str'    => (string) $id,
             'title'     => $request->get('title'),
             'content'   => $request->get('content'),
-            //'user_id'    => $this->getUserId(),
             'user_id'    => $userID
         ]);
 
@@ -62,23 +61,27 @@ class PostController extends Controller
      * @param  bigInteger $id
      * @return use Symfony\Component\HttpFoundation\Response;
      */
-    public function show($id) : Response 
+    public function show($id) : Response
     {
         $this->model = 'post';
         $post = $this->find($id, null);
-        
-        if(!$post) {
+
+        if (!$post) {
             return response()->json(['Could not find any post'], 404);
         }
 
-        $post = $post::with('user')->where('id',$id)->get();
+        if (!$post->user()->first()) {
+            return response()->json(['Error has occured please try again'], 500);
+        }
 
-        return response()->json(['data' => $post], 200);
+        $result = $post->getJsonResponse();
+        
+        return response()->json($result, 200);
     }
 
     /**
      * Update method for Post Controller
-     * @param  Request $request 
+     * @param  Request $request
      * @param  Post  $id
      * @return Response
      */
@@ -105,7 +108,7 @@ class PostController extends Controller
 
     /**
      * Delete Method For Post
-     * @param  Post $id 
+     * @param  Post $id
      * @return Response
      */
     public function delete($id)

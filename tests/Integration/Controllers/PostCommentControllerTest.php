@@ -36,7 +36,7 @@ class PostCommentControllerTest extends TestCase
 	{	
 		$post = Post::inRandomOrder()->first()->toArray();
 
-        $this->json('POST', '/posts/'.$post['id'].'/comments', $post)
+        $this->json('POST', '/posts/'. (int)$post['id_str'].'/comments', $post)
             ->seeJson([
             	0 => 201
         ]);
@@ -62,11 +62,11 @@ class PostCommentControllerTest extends TestCase
 	public function testDelete()
 	{	
 		$post = Post::inRandomOrder()->first();
-		$postID = $post->id;
+		$postID = $post->id_str;
 		$comment = $post->comments()->first();
 		$id = $comment->id;
 		//$id = Comments::inRandomOrder()->first()->id;
-
+		//
 		$this->delete('/posts/' . $postID . '/comments/' . $id);
 
 		$this->seeStatusCode(200);

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHashtagsTable extends Migration
+class CreateUrlsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,18 @@ class CreateHashtagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hashtags', function (Blueprint $table) {
+        Schema::create('urls', function (Blueprint $table) {
             $table->id();
 
-            $table->text('text');
+            $table->text('url');
+            $table->text('expanded_url');
+            $table->text('display_url');
+            $table->text('unwound');
             $table->text('indices');
+
             $table->unsignedBigInteger('entity_id');
             $table->foreign('entity_id')->references('id')->on('entity');
-
+            
             $table->timestamps();
         });
     }
@@ -32,6 +36,6 @@ class CreateHashtagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hashtags');
+        Schema::dropIfExists('urls');
     }
 }

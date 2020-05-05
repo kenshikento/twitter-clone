@@ -9,27 +9,27 @@ use Symfony\Component\HttpFoundation\Response;
 class CommentController extends Controller
 {
     /**
-     * Shows all comments 
-     * @return Response Should return json response 
+     * Shows all comments
+     * @return Response Should return json response
      */
-	public function index() : Response
-    { 
+    public function index() : Response
+    {
         $this->model = 'comment';
         $comment = $this->all();
 
-        if(!$comment) {
+        if (!$comment) {
             return response()->json(['data' => 'Could not find any Comments'], 404);
         }
 
-		return response()->json(['data' => $comment], 200);
+        return response()->json(['data' => $comment], 200);
     }
 
     /**
      * Should show comments filtered by ID
      * @param  int $id
-     * @return Response json 
+     * @return Response json
      */
-	public function show($id) : Response
+    public function show($id) : Response
     {
         $this->model = 'comment';
         $comment = $this->find($id, null);

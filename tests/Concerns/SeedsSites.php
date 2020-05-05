@@ -4,6 +4,9 @@ namespace tests\Concerns;
 
 use App\Comments;
 use App\Post;
+use App\Tweets\Entity;
+use App\Tweets\Entity\HashTags;
+use App\Tweets\Entity\Urls;
 use App\User;
 use Carbon\Carbon;
 use Faker\Generator;
@@ -45,6 +48,10 @@ trait SeedsSites
 
         foreach ($userIDs as $key => $value) {
             $posts = factory(Post::class)->create($value);
+
+            $entity = factory(Entity::class)->create(['post_id' => $posts->id]);
+            factory(HashTags::class)->create(['entity_id' => $entity->id]);
+            factory(Urls::class,5)->create(['entity_id' => $entity->id]);
         }
 
         factory(Comments::class,10)->create();

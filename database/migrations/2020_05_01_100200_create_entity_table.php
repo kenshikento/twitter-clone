@@ -14,12 +14,12 @@ class CreateEntityTable extends Migration
     public function up()
     {
         Schema::create('entity', function (Blueprint $table) {
-            $table->bigInteger('id')->unsigned()->primary();
+            $table->bigIncrements('id');
 
             $table->foreignId('post_id')->references('id')->on('posts')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
-        });
+        }); 
     }
 
     /**

@@ -11,16 +11,16 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
-	protected $model;
+    protected $model;
 
     /**
-     * Find method grabs model type and query by id. 
-     * @param  int   $id   
+     * Find method grabs model type and query by id.
+     * @param  int   $id
      * @param  int|null $take filter by take method
-     * @return ?Model $result 
+     * @return ?Model $result
      */
     public function find(int $id, ?int $take = null) : ?Model
-    {   
+    {
         $modelType = $this->getModelType();
 
         if (!$modelType) {
@@ -35,7 +35,7 @@ class Controller extends BaseController
         
         if (!$result) {
             return null;
-        }   
+        }
 
         return $result;
     }
@@ -45,15 +45,15 @@ class Controller extends BaseController
      * @return  Collection $result
      */
     public function all() : ?Collection
-    {  
+    {
         $result = $this->getModelType()::all();
 
-        if(count($result) < 1) {
+        if (count($result) < 1) {
             return null;
         }
 
         return $result;
-    } 
+    }
 
     /**
      * Grabs Model type for the given model

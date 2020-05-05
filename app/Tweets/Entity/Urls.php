@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class HashTags extends Model
+class Urls extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -16,7 +16,7 @@ class HashTags extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'entity_id', 'text'
+        'id', 'entity_id', 'url', 'expanded_url', 'display_url' 
     ];
 
     /**
@@ -24,7 +24,7 @@ class HashTags extends Model
      *
      * @var string
      */
-    protected $table = 'hashtags';
+    protected $table = 'urls';
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -42,6 +42,7 @@ class HashTags extends Model
      */
     protected $cast = [
         'indices' => 'array',
+        'unwound' => 'array',
     ];
 
     public function entity() : BelongsTo

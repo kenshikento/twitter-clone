@@ -62,3 +62,15 @@ Entity
     "symbols": [
     ]
   }
+
+   - Hashtag object
+
+  - Media object
+  - Media size object
+  - URL object
+
+  - User mention object
+
+  - Symbol object
+
+  - Poll object
