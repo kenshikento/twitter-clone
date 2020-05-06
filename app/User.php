@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Post;
+use App\Tweets\Entity\UserMention;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -37,5 +38,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function posts() : HasMany
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function userMentions() : HasMany
+    {
+        return $this->hasMany(UserMention::class);
     }
 }

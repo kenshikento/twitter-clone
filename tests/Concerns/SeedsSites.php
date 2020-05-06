@@ -6,7 +6,11 @@ use App\Comments;
 use App\Post;
 use App\Tweets\Entity;
 use App\Tweets\Entity\HashTags;
+use App\Tweets\Entity\Media;
+use App\Tweets\Entity\Polls;
+use App\Tweets\Entity\Symbol;
 use App\Tweets\Entity\Urls;
+use App\Tweets\Entity\UserMention;
 use App\User;
 use Carbon\Carbon;
 use Faker\Generator;
@@ -39,7 +43,7 @@ trait SeedsSites
         $id3 = $faker->unique()->randomDigit;
 
         $userList = User::inRandomOrder()->limit(3)->get();
-
+        // Need to redo array below kinda waste
         $userIDs = [
             1 => ['user_id' => $userList[0], 'id' => 1, 'id_str' => (string)1],
             2 => ['user_id' => $userList[1], 'id' => 2, 'id_str' => (string)2],
@@ -52,6 +56,26 @@ trait SeedsSites
             $entity = factory(Entity::class)->create(['post_id' => $posts->id]);
             factory(HashTags::class)->create(['entity_id' => $entity->id]);
             factory(Urls::class,5)->create(['entity_id' => $entity->id]);
+            $this->command->getOutput()->writeln('<info>Seeding:</info> Main Site');
+
+            $user = User::inRandomOrder()->where('id', '!=', $value['id'])->first();
+
+            factory(UserMention::class,2)->create([
+                'entity_id' => $entity->id,
+                'user_id' => $user->id
+            ]);
+
+            factory(Media::class,2)->create([
+                'entity_id' => $entity->id,
+            ]);
+
+            factory(Symbol::class,2)->create([
+                'entity_id' => $entity->id,
+            ]);
+
+            factory(Polls::class)->create([
+                'entity_id' => $entity->id,
+            ]);            
         }
 
         factory(Comments::class,10)->create();
@@ -59,3 +83,6 @@ trait SeedsSites
 
 
 }
+/*
+'id', 'entity_id', 'id_str', 
+ */

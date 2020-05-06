@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Urls extends Model
+class Media extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -16,15 +16,8 @@ class Urls extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'entity_id', 'url', 'expanded_url', 'display_url' 
+        'id', 'entity_id', 'display_url', 'indices', 'id_str', 'media_url', 'media_url_https', 'expanded_url', 'sizes'
     ];
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'urls';
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -35,6 +28,8 @@ class Urls extends Model
         'id', 'created_at', 'updated_at'
     ];
 
+    public $incrementing = false;
+
     /**
      * The attributes that should be casted to native types.
      *
@@ -42,12 +37,12 @@ class Urls extends Model
      */
     protected $cast = [
         'indices' => 'array',
-        'unwound' => 'array',
+        'sizes' => 'array'
     ];
 
     public function entity() : BelongsTo
     {
-        return $this->belongsTo(Entity::class);
+        return $this->belongTo(Entity::class);
     }
 
     public function parseIndices()

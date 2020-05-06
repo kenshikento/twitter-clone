@@ -6,7 +6,11 @@ use App\Comments;
 use App\Post;
 use App\Tweets\Entity;
 use App\Tweets\Entity\HashTags;
+use App\Tweets\Entity\Media;
+use App\Tweets\Entity\Polls;
+use App\Tweets\Entity\Symbol;
 use App\Tweets\Entity\Urls;
+use App\Tweets\Entity\UserMention;
 use App\User;
 use Faker\Generator as Faker;
 
@@ -66,7 +70,7 @@ $factory->define(HashTags::class, function (Faker $faker) {
 
 $factory->define(Urls::class, function (Faker $faker) {
     $array = [1,2];
-    $test  = json_encode($array);
+    $indices  = json_encode($array);
     $url = $faker->url;       
 
     $unwound = [
@@ -81,17 +85,99 @@ $factory->define(Urls::class, function (Faker $faker) {
         'expanded_url' => $url,
         'display_url' => $url,
         'unwound' =>    json_encode($unwound),
-        'indices' => $test
+        'indices' => $indices
     ];
 });
 
-/*
-            $table->text('url');
-            $table->text('expanded_url');
-            $table->text('display_url');
-            $table->text('unwound');
-            $table->text('z');
+$factory->define(UserMention::class, function (Faker $faker, $entity = null) {
 
-            $table->unsignedBigInteger('entity_id');
-            $table->foreign('entity_id')->references('id')->on('entity');
- */
+    $entityID = $entity['entity_id'];
+    $array = [1,2];
+    $indices  = json_encode($array);
+
+    return [
+        'indices' => $indices,
+        'entity_id' => $entityID
+    ];
+});
+
+
+$factory->define(Media::class, function (Faker $faker, $entity = null) {
+    
+    $snowflake = app('Kra8\Snowflake\Snowflake');        
+    $id = $snowflake->next();    
+
+    $sizes = ['sizes' => [
+          'thumb'=> [
+               'h'=> 150,
+               'resize'=> 'crop',
+               'w'=> 150
+          ],
+          'large'=> [
+              'h'=> 1366,
+              'resize'=> 'fit',
+              'w'=> 2048
+          ],
+          'medium'=> [
+              'h'=> 800,
+              'resize'=> 'fit',
+              'w'=> 1200
+          ],
+          'small'=> [
+              'h'=> 454,
+              'resize'=> 'fit',
+              'w'=> 680
+          ]
+      ]];
+
+    $sizes = json_encode($sizes);
+    $indices = json_encode([1,2]);
+
+    return [
+        'id'    =>  $id,
+        'id_str'    => (string)$id,
+        'indices' => $indices,
+        'display_url' => $faker->url,
+        'media_url' => $faker->url,
+        'media_url_https' => $faker->url,
+        'expanded_url' => $faker->url,
+        'sizes' => $sizes,
+        'type'  => 'photo',
+        'url'   => $faker->url,
+    ];
+});
+
+$factory->define(Symbol::class, function (Faker $faker, $entity = null) {
+
+    $entityID = $entity['entity_id'];
+    $array = [1,2];
+    $indices  = json_encode($array);
+
+    return [
+        'indices' => $indices,
+        'entity_id' => $entityID,
+        'text'  => $faker->paragraph(1),
+    ];
+});
+
+$factory->define(Polls::class, function (Faker $faker, $entity = null) {
+
+    $options = [
+        "options" => [
+                [
+                    "position" => 1,
+                    "text" => "I read documentation once."
+                ]
+        ]
+    ];
+
+    $options = json_encode($options);
+    $entityID = $entity['entity_id'];
+
+    return [
+        'options' => $options,
+        'entity_id' => $entityID,
+        'end_datetime'  => $faker->dateTime()->format('Y-m-d H:i:s'),
+        'duration_minutes'  => rand(1,60)
+    ];
+});

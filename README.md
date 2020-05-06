@@ -44,33 +44,8 @@
 
 Test
 ./vendor/bin/phpunit tests/Integration/Controllers/UserControllerTest.php
-
 ./vendor/bin/phpunit tests/Integration/Controllers/PostCommentControllerTest.php
 
-http://localhost:8000
 
+// Command 
 php -S localhost:8000 -t public
-
-Entity
-"entities": {
-    "hashtags": [
-    ],
-    "urls": [
-    ],
-    "user_mentions": [
-    ],
-    "symbols": [
-    ]
-  }
-
-   - Hashtag object
-
-  - Media object
-  - Media size object
-  - URL object
-
-  - User mention object
-
-  - Symbol object
-
-  - Poll object

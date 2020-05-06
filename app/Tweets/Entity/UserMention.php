@@ -2,13 +2,14 @@
 
 namespace App\Tweets\Entity;
 
-use App\Tweets\Entity;
 use App\Post;
+use App\Tweets\Entity;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Urls extends Model
+class UserMention extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -16,15 +17,8 @@ class Urls extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'entity_id', 'url', 'expanded_url', 'display_url' 
+        'id', 'entity_id', 'indices', 'user_id'
     ];
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'urls';
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -42,7 +36,6 @@ class Urls extends Model
      */
     protected $cast = [
         'indices' => 'array',
-        'unwound' => 'array',
     ];
 
     public function entity() : BelongsTo
@@ -53,5 +46,10 @@ class Urls extends Model
     public function parseIndices()
     {   
         return json_decode($this->indices);
+    }
+
+    public function user() : BelongsTo
+    { 
+        return $this->belongsTo(User::class);
     }
 }

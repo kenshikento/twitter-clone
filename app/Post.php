@@ -79,19 +79,41 @@ class Post extends Model
             $this->entity->hashtag->indices = $hashtag->parseIndices();
         }
 
+        $userMentions = $this->entity->userMentions()->get();
+
+        if (count($userMentions) > 0) {
+            // Should ideally add this on user mention model 
+            $userMentions->each(function ($item, $key) {
+                if ($item->user()->first()) {
+                    $user = $item->user()->first();
+                    $item->screen_name = $user->screen_name;
+                    $item->id = $user->id;
+                    $item->id_str = $user->id_str;
+                    $item->name = $user->name;
+                }
+            });
+
+            $this->entity->user_mentions = $userMentions;
+        }
+
+        $media = $this->entity->media()->get();
+
+        if (count($media) > 0) {
+            
+            // Should ideally add this on user mention media 
+            $media->each(function ($item, $key) {
+                $item->indices = $item->parseIndices();
+                $item->sizes   = json_decode($item->sizes);
+            });
+
+            $this->entity->media = $media;
+        }
+
+
+        // Symbol
+        
+        // Poll
+        
         return $this;
     }
 }
-
-/*
-        $post->user = $post->user()->first();
-        $post->entity = $post->entity()->first();
-        $post->entity->urls = $post->entity->urls()->get();
-
-        $hashtag = $post->entity->hashTags()->first();
-        $post->entity->hashtag = $hashtag;
-
-        if ($hashtag) {    
-            $post->entity->hashtag->indices = $hashtag->parseIndices();
-        }
-        */

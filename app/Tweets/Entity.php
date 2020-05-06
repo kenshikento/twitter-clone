@@ -4,7 +4,10 @@ namespace App\Tweets;
 
 use App\Post;
 use App\Tweets\Entity\HashTags;
+use App\Tweets\Entity\Media;
+use App\Tweets\Entity\Symbol;
 use App\Tweets\Entity\Urls;
+use App\Tweets\Entity\UserMention;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -41,13 +44,33 @@ class Entity extends Model
         return $this->hasMany(HashTags::class);
     }
 
-    public function posts() : BelongsTo
+    public function post() : BelongsTo
     {
-        return $this->belongTo(Post::class);
+        return $this->belongsTo(Post::class);
     }
 
     public function urls() : HasMany
     {
         return $this->hasMany(Urls::class);
     }
+
+    public function userMentions() : HasMany
+    {
+        return $this->hasMany(UserMention::class);
+    }
+
+    public function media() : HasMany
+    {
+        return $this->hasMany(Media::class);
+    }
+
+    public function symbols() : HasMany
+    {
+        return $this->hasMany(Symbol::class);
+    }
+
+    public function polls() : HasMany
+    {
+        return $this->hasMany(Symbol::class);
+    }    
 }
