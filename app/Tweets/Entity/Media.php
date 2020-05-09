@@ -31,6 +31,13 @@ class Media extends Model
     public $incrementing = false;
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'media';
+    
+    /**
      * The attributes that should be casted to native types.
      *
      * @var array
@@ -46,7 +53,7 @@ class Media extends Model
     }
 
     public function parseIndices()
-    {   
+    {
         return json_decode($this->indices);
     }
 }

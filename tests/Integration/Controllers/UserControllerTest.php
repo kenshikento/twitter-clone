@@ -28,7 +28,6 @@ class UserControllerTest extends TestCase
 		$this->seeStatusCode(200);
 	}
 
-
 	public function testAdd()
 	{	
 		$user = factory(User::class)->make()->toArray();

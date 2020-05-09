@@ -20,6 +20,7 @@ class PostCommentControllerTest extends TestCase
 	{
 	    parent::setUp();
 	    $this->runDatabaseMigrations();
+
 	    $this->artisan('db:seed');
 
 	}
@@ -33,7 +34,7 @@ class PostCommentControllerTest extends TestCase
 
 
 	public function testAdd()
-	{	
+	{
 		$post = Post::inRandomOrder()->first()->toArray();
 
         $this->json('POST', '/posts/'. (int)$post['id_str'].'/comments', $post)

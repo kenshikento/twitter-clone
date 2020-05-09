@@ -16,7 +16,7 @@ class Symbol extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'entity_id', 'indices', 'text' 
+        'id', 'entity_id', 'indices', 'text'
     ];
 
     /**
@@ -50,7 +50,7 @@ class Symbol extends Model
     }
 
     public function parseIndices()
-    {   
+    {
         return json_decode($this->indices);
     }
 }

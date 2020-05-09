@@ -23,7 +23,7 @@ class CreateUrlsTable extends Migration
             $table->text('indices');
 
             $table->unsignedBigInteger('entity_id');
-            $table->foreign('entity_id')->references('id')->on('entity');
+            $table->foreign('entity_id')->references('id')->on('entity')->onDelete('cascade')->onUpdate('cascade');
             
             $table->timestamps();
         });
@@ -36,6 +36,10 @@ class CreateUrlsTable extends Migration
      */
     public function down()
     {
+        Schema::table('urls', function (Blueprint $table) {
+            $table->dropForeign(['entity_id']);
+        });
+                
         Schema::dropIfExists('urls');
     }
 }

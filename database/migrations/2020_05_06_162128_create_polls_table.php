@@ -21,7 +21,7 @@ class CreatePollsTable extends Migration
             $table->integer('duration_minutes');
 
             $table->unsignedBigInteger('entity_id');
-            $table->foreign('entity_id')->references('id')->on('entity');
+            $table->foreign('entity_id')->references('id')->on('entity')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });
@@ -34,6 +34,10 @@ class CreatePollsTable extends Migration
      */
     public function down()
     {
+        Schema::table('polls', function (Blueprint $table) {
+            $table->dropForeign(['entity_id']);
+        }); 
+                
         Schema::dropIfExists('polls');
     }
 }

@@ -19,7 +19,7 @@ class CreateHashtagsTable extends Migration
             $table->text('text');
             $table->text('indices');
             $table->unsignedBigInteger('entity_id');
-            $table->foreign('entity_id')->references('id')->on('entity');
+            $table->foreign('entity_id')->references('id')->on('entity')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });
@@ -32,6 +32,10 @@ class CreateHashtagsTable extends Migration
      */
     public function down()
     {
+        Schema::table('hashtags', function (Blueprint $table) {
+            $table->dropForeign(['entity_id']);
+        });
+                
         Schema::dropIfExists('hashtags');
     }
 }

@@ -19,10 +19,10 @@ class CreateUsermentionTable extends Migration
             $table->text('indices');
 
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
             $table->unsignedBigInteger('entity_id');
-            $table->foreign('entity_id')->references('id')->on('entity');
+            $table->foreign('entity_id')->references('id')->on('entity')->onDelete('cascade')->onUpdate('cascade');
             
             $table->timestamps();
         });
@@ -35,6 +35,11 @@ class CreateUsermentionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usermention');
+        Schema::table('user_mentions', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['entity_id']);
+        });
+
+        Schema::dropIfExists('user_mentions');
     }
 }

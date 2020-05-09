@@ -3,6 +3,8 @@
 ## Laravel Lumen 
 
 ## Entry Point  [ How to Run or Test ]
+make install 
+
 
 ### Unit Testing 
 

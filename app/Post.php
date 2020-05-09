@@ -66,54 +66,42 @@ class Post extends Model
         return $this->hasMany(Urls::class);
     }
 
-    public function getJsonResponse()  
+    public function getResponse()
     {
         $this->user = $this->user()->first();
         $this->entity = $this->entity()->first();
         $this->entity->urls = $this->entity->urls()->get();
 
-        $hashtag = $this->entity->hashTags()->first();
-        $this->entity->hashtag = $hashtag;
-
-        if ($hashtag) {    
-            $this->entity->hashtag->indices = $hashtag->parseIndices();
+        $hashtag = $this->entity->getHashTagCollection();
+        
+        if ($hashtag) {
+            $this->entity->hashtag = $hashtag;
         }
 
-        $userMentions = $this->entity->userMentions()->get();
+        $userMentions = $this->entity->getUserMentionCollection();
 
         if (count($userMentions) > 0) {
-            // Should ideally add this on user mention model 
-            $userMentions->each(function ($item, $key) {
-                if ($item->user()->first()) {
-                    $user = $item->user()->first();
-                    $item->screen_name = $user->screen_name;
-                    $item->id = $user->id;
-                    $item->id_str = $user->id_str;
-                    $item->name = $user->name;
-                }
-            });
-
             $this->entity->user_mentions = $userMentions;
         }
 
-        $media = $this->entity->media()->get();
+        $media = $this->entity->getMediaCollection();
 
         if (count($media) > 0) {
-            
-            // Should ideally add this on user mention media 
-            $media->each(function ($item, $key) {
-                $item->indices = $item->parseIndices();
-                $item->sizes   = json_decode($item->sizes);
-            });
-
             $this->entity->media = $media;
         }
 
+        $symbol = $this->entity->getSymbolCollection();
 
-        // Symbol
+        if (count($symbol) > 0) {
+            $this->entity->symbols = $symbol;
+        }
+
+        $poll = $this->entity->getPollCollection();
         
-        // Poll
-        
+        if (count($poll) >= 1) {
+            $this->entity->polls = $poll;
+        }
+
         return $this;
     }
 }

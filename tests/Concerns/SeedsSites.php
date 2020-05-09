@@ -38,10 +38,6 @@ trait SeedsSites
     {
         $faker = app(Generator::class);
 
-        $id  = $faker->unique()->randomDigit;
-        $id2 = $faker->unique()->randomDigit;
-        $id3 = $faker->unique()->randomDigit;
-
         $userList = User::inRandomOrder()->limit(3)->get();
         // Need to redo array below kinda waste
         $userIDs = [
@@ -56,7 +52,7 @@ trait SeedsSites
             $entity = factory(Entity::class)->create(['post_id' => $posts->id]);
             factory(HashTags::class)->create(['entity_id' => $entity->id]);
             factory(Urls::class,5)->create(['entity_id' => $entity->id]);
-            $this->command->getOutput()->writeln('<info>Seeding:</info> Main Site');
+            $this->command->getOutput()->writeln('<info>Seeding:</info> Mains Site');
 
             $user = User::inRandomOrder()->where('id', '!=', $value['id'])->first();
 
@@ -80,9 +76,4 @@ trait SeedsSites
 
         factory(Comments::class,10)->create();
     }
-
-
 }
-/*
-'id', 'entity_id', 'id_str', 
- */

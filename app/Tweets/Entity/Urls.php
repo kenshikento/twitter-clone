@@ -16,7 +16,7 @@ class Urls extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'entity_id', 'url', 'expanded_url', 'display_url' 
+        'id', 'entity_id', 'url', 'expanded_url', 'display_url'
     ];
 
     /**
@@ -51,7 +51,7 @@ class Urls extends Model
     }
 
     public function parseIndices()
-    {   
+    {
         return json_decode($this->indices);
     }
 }

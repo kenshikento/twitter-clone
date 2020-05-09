@@ -44,12 +44,12 @@ class UserMention extends Model
     }
 
     public function parseIndices()
-    {   
+    {
         return json_decode($this->indices);
     }
 
     public function user() : BelongsTo
-    { 
+    {
         return $this->belongsTo(User::class);
     }
 }

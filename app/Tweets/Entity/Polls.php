@@ -16,7 +16,7 @@ class Polls extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'entity_id', 'end_datetime' , 'duration_minutes', 'options' 
+        'id', 'entity_id', 'end_datetime' , 'duration_minutes', 'options'
     ];
 
     /**
@@ -43,7 +43,7 @@ class Polls extends Model
     }
 
     public function parseIndices()
-    {   
+    {
         return json_decode($this->indices);
     }
 }

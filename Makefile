@@ -25,7 +25,7 @@ dump-autoload:
 	@composer dump-autoload --quiet
 	@echo 'Done.'
 
-#! IF MAC OS USE / Instead of \ As i am using WINDOWS Enviroment 
+#! IF MAC OS USE / Instead of \ As i am using WINDOWS Enviroment
 lint:
 	.\vendor\bin\phpcs
 

@@ -50,7 +50,7 @@ class HashTags extends Model
     }
 
     public function parseIndices()
-    {   
+    {
         return json_decode($this->indices);
     }
 }

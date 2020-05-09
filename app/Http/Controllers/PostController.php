@@ -74,7 +74,7 @@ class PostController extends Controller
             return response()->json(['Error has occured please try again'], 500);
         }
 
-        $result = $post->getJsonResponse();
+        $result = $post->getResponse();
         
         return response()->json($result, 200);
     }

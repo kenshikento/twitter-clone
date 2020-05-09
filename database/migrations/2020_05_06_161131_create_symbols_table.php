@@ -20,7 +20,7 @@ class CreateSymbolsTable extends Migration
             $table->text('indices');
 
             $table->unsignedBigInteger('entity_id');
-            $table->foreign('entity_id')->references('id')->on('entity');
+            $table->foreign('entity_id')->references('id')->on('entity')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });
@@ -33,10 +33,10 @@ class CreateSymbolsTable extends Migration
      */
     public function down()
     {
+        Schema::table('symbols', function (Blueprint $table) {
+            $table->dropForeign(['entity_id']);
+        });       
+
         Schema::dropIfExists('symbols');
     }
 }
-
-/*
-'id', 'entity_id', 'indices', 'text' 
- */

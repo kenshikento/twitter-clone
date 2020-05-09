@@ -27,7 +27,7 @@ class CreateMediaTable extends Migration
             $table->text('type');    
 
             $table->unsignedBigInteger('entity_id');
-            $table->foreign('entity_id')->references('id')->on('entity');
+            $table->foreign('entity_id')->references('id')->on('entity')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });
