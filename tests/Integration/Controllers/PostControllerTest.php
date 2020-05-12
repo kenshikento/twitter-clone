@@ -3,6 +3,13 @@
 namespace Tests\Integration\Controllers;
 
 use App\Post;
+use App\Tweets\Entity;
+use App\Tweets\Entity\HashTags;
+use App\Tweets\Entity\Media;
+use App\Tweets\Entity\Polls;
+use App\Tweets\Entity\Symbol;
+use App\Tweets\Entity\Urls;
+use App\Tweets\Entity\UserMention;
 use Faker\Generator;
 use Illuminate\Contracts\Console\Kernel;
 use Laravel\Lumen\Testing\DatabaseMigrations;
@@ -21,17 +28,35 @@ class PostControllerTest extends TestCase
 	    $this->artisan('db:seed');
 
 	}
-
+	/*
 	public function testShow()
 	{	
 		$this->get('/posts');
 		$this->seeStatusCode(200);
-	}
+	}*/
 
 	public function testAdd()
 	{	
-		$post = factory(Post::class)->make()->toArray();
+		$post = factory(Post::class)->make(['id' => 123]);
+
+		//$entity = factory(Entity::class)->make(['post_id' => $post->id, 'id' => 1, 'id_str' => '1']);
 		
+		$hashtag = factory(HashTags::class)->make();
+		$urls = factory(Urls::class)->make();
+		$usermention = factory(UserMention::class)->make();
+		$media = factory(Media::class)->make();
+		$symbol = factory(Symbol::class)->make();
+		$polls = factory(Polls::class)->make();
+
+		$post->hashtag = $hashtag;
+		$post->urls = $urls;
+		$post->usermention = $usermention;
+		$post->media = $media;
+		$post->symbol = $symbol;
+		$post->polls = $polls;
+
+		$post = $post->toArray();
+
         $this->json('POST', '/posts', $post)
             ->seeJson([
             	0 => 201,

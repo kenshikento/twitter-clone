@@ -52,7 +52,8 @@ trait SeedsSites
             $entity = factory(Entity::class)->create(['post_id' => $posts->id]);
             factory(HashTags::class)->create(['entity_id' => $entity->id]);
             factory(Urls::class,5)->create(['entity_id' => $entity->id]);
-            $this->command->getOutput()->writeln('<info>Seeding:</info> Mains Site');
+
+            $this->command->getOutput()->writeln('<info>Seeding:</info> Entity :' . $key );
 
             $user = User::inRandomOrder()->where('id', '!=', $value['id'])->first();
 

@@ -90,19 +90,16 @@ $factory->define(Urls::class, function (Faker $faker) {
 });
 
 $factory->define(UserMention::class, function (Faker $faker, $entity = null) {
-
-    $entityID = $entity['entity_id'];
     $array = [1,2];
     $indices  = json_encode($array);
 
     return [
         'indices' => $indices,
-        'entity_id' => $entityID
     ];
 });
 
 
-$factory->define(Media::class, function (Faker $faker, $entity = null) {
+$factory->define(Media::class, function (Faker $faker) {
     
     $snowflake = app('Kra8\Snowflake\Snowflake');        
     $id = $snowflake->next();    
@@ -147,20 +144,17 @@ $factory->define(Media::class, function (Faker $faker, $entity = null) {
     ];
 });
 
-$factory->define(Symbol::class, function (Faker $faker, $entity = null) {
-
-    $entityID = $entity['entity_id'];
+$factory->define(Symbol::class, function (Faker $faker) {
     $array = [1,2];
     $indices  = json_encode($array);
 
     return [
         'indices' => $indices,
-        'entity_id' => $entityID,
         'text'  => $faker->paragraph(1),
     ];
 });
 
-$factory->define(Polls::class, function (Faker $faker, $entity = null) {
+$factory->define(Polls::class, function (Faker $faker) {
 
     $options = [
         "options" => [
@@ -172,11 +166,9 @@ $factory->define(Polls::class, function (Faker $faker, $entity = null) {
     ];
 
     $options = json_encode($options);
-    $entityID = $entity['entity_id'];
 
     return [
         'options' => $options,
-        'entity_id' => $entityID,
         'end_datetime'  => $faker->dateTime()->format('Y-m-d H:i:s'),
         'duration_minutes'  => rand(1,60)
     ];

@@ -46,6 +46,7 @@ make install
 
 Test
 ./vendor/bin/phpunit tests/Integration/Controllers/UserControllerTest.php
+./vendor/bin/phpunit tests/Integration/Controllers/PostControllerTest.php
 ./vendor/bin/phpunit tests/Integration/Controllers/PostCommentControllerTest.php
 
 

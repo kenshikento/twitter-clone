@@ -16,7 +16,7 @@ class Urls extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'entity_id', 'url', 'expanded_url', 'display_url'
+        'id', 'entity_id', 'url', 'expanded_url', 'display_url', 'unwound', 'indices'
     ];
 
     /**

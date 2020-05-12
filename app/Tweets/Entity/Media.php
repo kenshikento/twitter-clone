@@ -16,7 +16,7 @@ class Media extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'entity_id', 'display_url', 'indices', 'id_str', 'media_url', 'media_url_https', 'expanded_url', 'sizes'
+        'id', 'entity_id', 'display_url', 'indices', 'id_str', 'media_url', 'media_url_https', 'expanded_url', 'sizes', 'url', 'type'
     ];
 
     /**

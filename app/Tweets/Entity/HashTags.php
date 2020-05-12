@@ -16,7 +16,7 @@ class HashTags extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'entity_id', 'text'
+        'id', 'entity_id', 'text', 'indices'
     ];
 
     /**
